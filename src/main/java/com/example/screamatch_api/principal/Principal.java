@@ -1,11 +1,15 @@
 package com.example.screamatch_api.principal;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.example.screamatch_api.model.DadosSerie;
 import com.example.screamatch_api.model.DadosTemporada;
+import com.example.screamatch_api.model.Serie;
 import com.example.screamatch_api.service.ConsumoApi;
 import com.example.screamatch_api.service.ConverteDados;
 
@@ -83,6 +87,12 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-        dadoSeries.forEach(System.out::println);
+
+        List<Serie> series = new ArrayList<>();
+        series = dadoSeries.stream().map(d -> new Serie(d)).collect(Collectors.toList());
+                
+        series.stream().sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
+        
     }
 }
