@@ -16,4 +16,13 @@ public enum Categoria {
     Categoria(String categoriaOmdb) {
         this.categoriaOmdb = categoriaOmdb;
     }
+
+    public static Categoria fromString(String text) {
+        for (Categoria cat : Categoria.values()) {
+            if (cat.categoriaOmdb.equalsIgnoreCase(text)) {
+                return cat;
+            }
+        }
+        throw new IllegalArgumentException("Categoria não encontrada: " + text);
+    }
 }

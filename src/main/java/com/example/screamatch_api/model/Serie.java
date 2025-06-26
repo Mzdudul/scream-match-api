@@ -19,7 +19,7 @@ public class Serie {
         this.atores = dadosSerie.atores();
         this.sinopse = dadosSerie.sinopse();
         this.poster = dadosSerie.poster();
-        this.genero = ;
+        this.genero = Categoria.fromString(dadosSerie.genero().split(",") [0].trim());
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao()))
                                        .orElse(0);
         
