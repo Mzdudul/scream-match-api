@@ -4,15 +4,37 @@ import java.util.OptionalDouble;
 
 import com.example.screamatch_api.service.ConsultaChatGPT;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
+@Entity
+@Table(name = "series")
 public class Serie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String titulo;
+
     private Integer totalTemporadas;
+
     private String atores;
+
     private String sinopse;
+
     private String poster;
+
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
+    
     private Double avaliacao;
 
     public Serie(DadosSerie dadosSerie) {
@@ -25,6 +47,10 @@ public class Serie {
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao()))
                                        .orElse(0);
 
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {
@@ -47,6 +73,10 @@ public class Serie {
     }
     public Double getAvaliacao() {
         return avaliacao;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setTitulo(String titulo) {
