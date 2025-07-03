@@ -1,5 +1,7 @@
 package com.example.screamatch_api.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 import com.example.screamatch_api.service.ConsultaChatGPT;
@@ -12,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -36,6 +39,9 @@ public class Serie {
     private Categoria genero;
     
     private Double avaliacao;
+    
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
@@ -47,6 +53,10 @@ public class Serie {
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao()))
                                        .orElse(0);
 
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
     }
 
     public Long getId() {
@@ -73,6 +83,10 @@ public class Serie {
     }
     public Double getAvaliacao() {
         return avaliacao;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
     }
 
     public void setId(Long id) {
