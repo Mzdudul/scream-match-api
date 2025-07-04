@@ -10,6 +10,7 @@ public enum Categoria {
     TERROR ("Horror"),
     ANIMACAO ("Animation"),
     DOCUMENTARIO ("Documentary");
+    
 
     private String categoriaOmdb;
 

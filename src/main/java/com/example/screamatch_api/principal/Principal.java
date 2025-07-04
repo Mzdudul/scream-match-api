@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
 
 import com.example.screamatch_api.model.DadosSerie;
 import com.example.screamatch_api.model.DadosTemporada;
 import com.example.screamatch_api.model.Serie;
+import com.example.screamatch_api.repository.SerieRepository;
 import com.example.screamatch_api.service.ConsumoApi;
 import com.example.screamatch_api.service.ConverteDados;
 
@@ -19,7 +20,12 @@ public class Principal {
     private ConverteDados conversor = new ConverteDados();
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=6585022c";
-    private List<DadosSerie> dadoSeries = new ArrayList<>();
+    
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -61,7 +67,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadoSeries.add(dados);
+        Serie serie = new Serie(dados);
+        
+        repository.save(serie);
         System.out.println(dados);
     }
 
@@ -86,9 +94,8 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas(){
-
-        List<Serie> series = new ArrayList<>();
-        series = dadoSeries.stream().map(d -> new Serie(d)).collect(Collectors.toList());
+        List<Serie> series = repository.findAll();
+        
                 
         series.stream().sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);

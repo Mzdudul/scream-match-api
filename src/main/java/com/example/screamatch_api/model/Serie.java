@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
-import com.example.screamatch_api.service.ConsultaChatGPT;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,13 +43,16 @@ public class Serie {
     @Transient
     private List<Episodio> episodios = new ArrayList<>();
 
+    public Serie() {
+    }
+
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
         this.totalTemporadas = dadosSerie.totalTemporadas();
         this.atores = dadosSerie.atores();
-        this.sinopse = ConsultaChatGPT.obterTraducao(dadosSerie.sinopse()).trim();
+        this.sinopse = dadosSerie.sinopse();
         this.poster = dadosSerie.poster();
-        this.genero = Categoria.fromString(dadosSerie.genero().split(",") [0].trim());
+        this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao()))
                                        .orElse(0);
 
