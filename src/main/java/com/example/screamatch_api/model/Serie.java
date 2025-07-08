@@ -1,51 +1,31 @@
 package com.example.screamatch_api.model;
 
+
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
-
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-
-
 @Entity
 @Table(name = "series")
 public class Serie {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String titulo;
-
     private Integer totalTemporadas;
-
-    private String atores;
-
-    private String sinopse;
-
-    private String poster;
-
+    private Double avaliacao;
     @Enumerated(EnumType.STRING)
     private Categoria genero;
-    
-    private Double avaliacao;
-    
-   @OneToMany(mappedBy = "serie")
+    private String atores;
+    private String poster;
+    private String sinopse;
+
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios = new ArrayList<>();
 
-    public Serie() {
-    }
+    public Serie() {}
 
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
@@ -59,76 +39,89 @@ public class Serie {
 
     }
 
-    public List<Episodio> getEpisodios() {
-        return episodios;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-    public Integer getTotalTemporadas() {
-        return totalTemporadas;
-    }
-    public String getAtores() {
-        return atores;
-    }
-    public String getSinopse() {
-        return sinopse;
-    }
-    public String getPoster() {
-        return poster;
-    }
-    public Categoria getGenero() {
-        return genero;
-    }
-    public Double getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setEpisodios(List<Episodio> episodios) {
-        this.episodios = episodios;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
+        this.episodios = episodios;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    public Integer getTotalTemporadas() {
+        return totalTemporadas;
+    }
+
     public void setTotalTemporadas(Integer totalTemporadas) {
         this.totalTemporadas = totalTemporadas;
     }
-    public void setAtores(String atores) {
-        this.atores = atores;
+
+    public Double getAvaliacao() {
+        return avaliacao;
     }
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
     }
-    public void setPoster(String poster) {
-        this.poster = poster;
+
+    public Categoria getGenero() {
+        return genero;
     }
+
     public void setGenero(Categoria genero) {
         this.genero = genero;
     }
-    public void setAvaliacao(Double avaliacao) {
-        this.avaliacao = avaliacao;
+
+    public String getAtores() {
+        return atores;
+    }
+
+    public void setAtores(String atores) {
+        this.atores = atores;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
     }
 
     @Override
     public String toString() {
         return
-        "genero=" + genero +
-         ", titulo='" + titulo + '\'' +
-                ", totalTemporadas=" + totalTemporadas +
-                ", atores='" + atores + '\'' +
-                ", sinopse='" + sinopse + '\'' +
-                ", poster='" + poster + '\'' +
-                
-                ", avaliacao=" + avaliacao;
+                "genero=" + genero +
+                        ", titulo='" + titulo + '\'' +
+                        ", totalTemporadas=" + totalTemporadas +
+                        ", avaliacao=" + avaliacao +
+                        ", atores='" + atores + '\'' +
+                        ", poster='" + poster + '\'' +
+                        ", sinopse='" + sinopse + '\'' +
+                        ", episodios='" + episodios + '\'';
     }
 }
