@@ -104,8 +104,8 @@ public class Principal {
             temporadas.forEach(System.out::println);
 
             List<Episodio> episodios = temporadas.stream()
-                    .flatMap(d -> d.episodios().stream()
-                            .map(e -> new Episodio(d.numero(), e)))
+                    .flatMap(d -> d.getEpisodios().stream()
+                            .map(e -> new Episodio(d.getNumero(), e)))
                     .collect(Collectors.toList());
 
             serieEncontrada.setEpisodios(episodios);
