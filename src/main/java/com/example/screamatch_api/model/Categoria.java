@@ -1,29 +1,34 @@
 package com.example.screamatch_api.model;
-
 public enum Categoria {
-    ACAO("Action"),
-    AVENTURA("Adventure"),
-    COMEDIA("Comedy"),
-    DRAMA ("Drama"),
-    CRIME("Crime"),
-    ROMANCE ("Romance"),
-    TERROR ("Horror"),
-    ANIMACAO ("Animation"),
-    DOCUMENTARIO ("Documentary");
-    
+    ACAO("Action", "Acao"),
+    ROMANCE("Romance", "Romance"),
+    COMEDIA("Comedy", "Comédia"),
+    DRAMA("Drama", "Drama"),
+    CRIME("Crime", "Crime");
 
     private String categoriaOmdb;
+    private String categoriaPortugues;
 
-    Categoria(String categoriaOmdb) {
+    Categoria(String categoriaOmdb, String categoriaPortugues){
         this.categoriaOmdb = categoriaOmdb;
+        this.categoriaPortugues = categoriaPortugues;
     }
 
     public static Categoria fromString(String text) {
-        for (Categoria cat : Categoria.values()) {
-            if (cat.categoriaOmdb.equalsIgnoreCase(text)) {
-                return cat;
+        for (Categoria categoria : Categoria.values()) {
+            if (categoria.categoriaOmdb.equalsIgnoreCase(text)) {
+                return categoria;
             }
         }
-        throw new IllegalArgumentException("Categoria não encontrada: " + text);
+        throw new IllegalArgumentException("Nenhuma categoria encontrada para a string fornecida: " + text);
+    }
+
+    public static Categoria fromPortugues(String text) {
+        for (Categoria categoria : Categoria.values()) {
+            if (categoria.categoriaPortugues.equalsIgnoreCase(text)) {
+                return categoria;
+            }
+        }
+        throw new IllegalArgumentException("Nenhuma categoria encontrada para a string fornecida: " + text);
     }
 }
