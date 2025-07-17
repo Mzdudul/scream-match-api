@@ -1,15 +1,16 @@
 package com.example.screamatch_api.model;
+
 public enum Categoria {
     ACAO("Action", "Acao"),
     ROMANCE("Romance", "Romance"),
-    COMEDIA("Comedy", "Comédia"),
+    COMEDIA("Comedy", "Comedia"),
     DRAMA("Drama", "Drama"),
     CRIME("Crime", "Crime");
 
     private String categoriaOmdb;
     private String categoriaPortugues;
 
-    Categoria(String categoriaOmdb, String categoriaPortugues){
+    Categoria(String categoriaOmdb, String categoriaPortugues) {
         this.categoriaOmdb = categoriaOmdb;
         this.categoriaPortugues = categoriaPortugues;
     }
