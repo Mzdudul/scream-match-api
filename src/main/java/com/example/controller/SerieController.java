@@ -1,27 +1,29 @@
 package com.example.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dto.SerieDTO;
-import com.example.screamatch_api.repository.SerieRepository;
+
+import com.example.screamatch_api.service.SerieService;
 
 @RestController
 public class SerieController {
     @Autowired
-    private SerieRepository repositorio;
+    private SerieService serieService;
 
     @GetMapping("/series")
-    public List<SerieDTO> obterSeries() {
-        return repositorio.findAll()
-                .stream()
-                .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(),
-                        s.getAvaliacao(), s.getGenero(), s.getAtores(), s.getPoster(), s.getSinopse()))
-                .collect(Collectors.toList());
+    public List<SerieDTO> obterSeries(SerieService serieService) {
+        return serieService.obterTodasAsSeries();
+        
     }
+
+
+    
+    
+
 
 }
