@@ -1,9 +1,9 @@
 package com.example.screamatch_api.model;
 
 public enum Categoria {
-    ACAO("Action", "Acao"),
+    ACAO("Action", "Acão"),
     ROMANCE("Romance", "Romance"),
-    COMEDIA("Comedy", "Comedia"),
+    COMEDIA("Comedy", "Comédia"),
     DRAMA("Drama", "Drama"),
     CRIME("Crime", "Crime");
 
